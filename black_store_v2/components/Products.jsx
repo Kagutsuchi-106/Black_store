@@ -4,8 +4,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 import shoppingBag from '../assets/images/shoppingBag.png';
 
-const { width } = Dimensions.get('window');
-
 export default function Products({
     slides = [{ id: '1' }, { id: '2' }, { id: '3' }],
 }) {
@@ -30,7 +28,7 @@ export default function Products({
                                 width: 86,
                             }}
                         />
-                        <Text style={styles.title}>{item.title}</Text>
+                     
                     </LinearGradient>
                 )}
             />
@@ -40,9 +38,11 @@ export default function Products({
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: '100%',
+        height: 185,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom:25,
     },
     card: {
         justifyContent: 'center',
@@ -50,5 +50,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         flex: 1,
         marginHorizontal: 10,
+        paddingBottom:10,
     },
 });

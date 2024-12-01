@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     menuItem: {
         fontSize: 18,
         marginVertical: 10,
-        color: colors.menuBurgerText,
+        color: colors.secondaryText,
     },
     searchInput: {
         height: 41,
