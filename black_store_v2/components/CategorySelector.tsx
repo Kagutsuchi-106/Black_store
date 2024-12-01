@@ -57,7 +57,7 @@ const CategorySelector = () => {
     return (
         <View style={styles.container}>
             <FlatList
-                data={buttonsData} // Используем данные
+                data={buttonsData} 
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 horizontal

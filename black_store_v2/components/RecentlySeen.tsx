@@ -1,61 +1,11 @@
-import {
-    StyleSheet,
-    Text,
-    View,
-    SafeAreaView,
-    FlatList,
-    Image,
-} from 'react-native';
-import colors from '@/assets/colors';
 import React from 'react';
+import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { recentlyProducts } from '@/scripts/recentlyProducts'; // Импортируем массив
 import shoppingBag from '../assets/images/shoppingBag.png';
+import colors from '@/assets/colors';
 
-const RecentlySeen = () => {
-    const recentlyProducts = [
-        {
-            id: '1',
-            title: 'Product',
-            text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minima dicta, quod incidunt corporis, ',
-            price: '$000.00',
-        },
-        {
-            id: '2',
-            title: 'Product',
-            text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minima dicta, quod incidunt corporis, ',
-            price: '$000.00',
-        },
-        {
-            id: '3',
-            title: 'Product',
-            text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minima dicta, quod incidunt corporis, ',
-            price: '$000.00',
-        },
-        {
-            id: '5',
-            title: 'Product',
-            text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minima dicta, quod incidunt corporis, ',
-            price: '$000.00',
-        },
-        {
-            id: '6',
-            title: 'Product',
-            text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minima dicta, quod incidunt corporis, ',
-            price: '$000.00',
-        },
-        {
-            id: '7',
-            title: 'Product',
-            text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minima dicta, quod incidunt corporis, ',
-            price: '$000.00',
-        },
-        {
-            id: '8',
-            title: 'Product',
-            text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam minima dicta, quod suscipit accusantium doloremque adipisci enim itaque iure incidunt corporis, nemo voluptates, porro consequuntur veritatis voluptate reiciendis dignissimos nihil?',
-            price: '$000.00',
-        },
-    ];
+export default function RecentlySeen () {
     interface RecentlyProduct {
         id: string;
         title: string;
@@ -63,58 +13,28 @@ const RecentlySeen = () => {
         price: string;
     }
 
-    const renderItem = ({ item } : { item: RecentlyProduct }) => {
+    const renderItem = ({ item }: { item: RecentlyProduct }) => {
         return (
             <View style={styles.item}>
                 <LinearGradient
-                    key={item.id}
-                    colors={['#6f6f6f', '#474749']} // Цвета градиента
+                    colors={['#6f6f6f', '#474749']}
                     style={styles.card}
                 >
                     <Image
                         source={shoppingBag}
-                        style={{
-                            height: 50,
-                            width: 50,
-                        }}
+                        style={{ height: 50, width: 50 }}
                     />
                 </LinearGradient>
-                <View style={{ width: '75%', marginLeft: 10 }}>
+                <View style={{ width: '45%', marginLeft: 10 }}>
+                    <Text style={styles.title}>{item.title}</Text>
                     <Text
-                        style={{
-                            color: colors.primaryText,
-                            fontSize: 18,
-                            fontWeight: '500',
-                            letterSpacing: 0.5,
-                            marginBottom: 3,
-                        }}
-                    >
-                        {item.title}
-                    </Text>
-                    <Text
-                        style={{
-                            color: colors.primaryText,
-                            fontSize: 11,
-                            marginBottom: 3,
-                            letterSpacing: 0.5,
-                            flexShrink: 1,
-                        }}
-                        numberOfLines={2} // Указываем максимальное количество строк
-                        ellipsizeMode="tail" // Добавляет "..." в конце строки
+                        style={styles.text}
+                        numberOfLines={2}
+                        ellipsizeMode="tail"
                     >
                         {item.text}
                     </Text>
-
-                    <Text
-                        style={{
-                            color: colors.secondaryText,
-                            fontSize: 16,
-                            marginBottom: 3,
-                            letterSpacing: 0.5,
-                        }}
-                    >
-                        {item.price}
-                    </Text>
+                    <Text style={styles.price}>{item.price}</Text>
                 </View>
             </View>
         );
@@ -123,50 +43,24 @@ const RecentlySeen = () => {
     return (
         <View style={styles.container}>
             <LinearGradient
-                colors={['#474749', '#343537']} // Цвета градиента
-                style={{
-                    width: '100%',
-                    height: 270,
-                    borderRadius: 25,
-                    paddingHorizontal: 12,
-                    // paddingTop:20
-                }}
+                colors={['#474749', '#343537']}
+                style={styles.gradient}
             >
-                <Text
-                    style={{
-                        fontSize: 18,
-                        color: colors.primaryText,
-                        paddingLeft: 10,
-                        marginVertical: 15,
-                    }}
-                >
-                    Recently Seen
-                </Text>
-                <View
-                    style={{
-                        height: 0.5,
-                        width: '100%',
-                        backgroundColor: colors.defButtonBackgroundColor,
-                    }}
+                <Text style={styles.header}>Recently Seen</Text>
+                <View style={{width:'100%',
+                    height:1,
+                    backgroundColor:colors.defButtonBackgroundColor,
+                }}/>
+                <FlatList
+                    data={recentlyProducts}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    showsVerticalScrollIndicator={false}
                 />
-
-                <View>
-                    <FlatList
-                        data={recentlyProducts} // Используем данные
-                        renderItem={renderItem}
-                        keyExtractor={(item) => item.id}
-                        style={{ height: 200 }}
-                        // vertical
-                        // contentContainerStyle={styles.listContainer}
-                        showsVerticalScrollIndicator={false}
-                    />
-                </View>
             </LinearGradient>
         </View>
     );
 };
-
-export default RecentlySeen;
 
 const styles = StyleSheet.create({
     container: {
@@ -188,8 +82,40 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 87,
         margin: 10,
-        marginBottom:3,
-        // paddingHorizontal:20,
         flexDirection: 'row',
     },
+    gradient: {
+        width: '100%',
+        height: 270,
+        borderRadius: 25,
+        paddingHorizontal: 12,
+        borderColor:colors.defButtonBackgroundColor,
+        borderWidth:2,
+    },
+    header: {
+        fontSize: 18,
+        color: colors.primaryText,
+        paddingLeft: 10,
+        marginVertical: 15,
+    },
+    title: {
+        color: colors.primaryText,
+        fontSize: 18,
+        fontWeight: '500',
+        letterSpacing: 0.5,
+        marginBottom: 3,
+    },
+    text: {
+        color: colors.primaryText,
+        fontSize: 11,
+        marginBottom: 3,
+        letterSpacing: 0.5,
+    },
+    price: {
+        color: colors.secondaryText,
+        fontSize: 16,
+        marginBottom: 3,
+        letterSpacing: 0.5,
+    },
 });
+

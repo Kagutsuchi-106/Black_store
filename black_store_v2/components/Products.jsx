@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel';
 import shoppingBag from '../assets/images/shoppingBag.png';
@@ -28,7 +28,6 @@ export default function Products({
                                 width: 86,
                             }}
                         />
-                     
                     </LinearGradient>
                 )}
             />
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
         height: 185,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom:25,
+        marginBottom: 25,
     },
     card: {
         justifyContent: 'center',
@@ -50,6 +49,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         flex: 1,
         marginHorizontal: 10,
-        paddingBottom:10,
+        paddingBottom: 10,
     },
 });
